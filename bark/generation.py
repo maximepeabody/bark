@@ -66,10 +66,6 @@ SUPPORTED_LANGS = [
     ("Chinese", "zh"),
 ]
 
-ALLOWED_PROMPTS = {"announcer"}
-for _, lang in SUPPORTED_LANGS:
-    for n in range(10):
-        ALLOWED_PROMPTS.add(f"{lang}_speaker_{n}")
 
 
 logger = logging.getLogger(__name__)
@@ -382,7 +378,6 @@ def generate_text_semantic(
         if history_prompt.endswith(".npz"):
             semantic_history = np.load(history_prompt)["semantic_prompt"]
         else:
-            assert (history_prompt in ALLOWED_PROMPTS)
             semantic_history = np.load(
                 os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
             )["semantic_prompt"]
@@ -536,7 +531,6 @@ def generate_coarse(
         if history_prompt.endswith(".npz"):
             x_history = np.load(history_prompt)
         else:
-            assert (history_prompt in ALLOWED_PROMPTS)
             x_history = np.load(
                 os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
             )
@@ -689,7 +683,6 @@ def generate_fine(
         if history_prompt.endswith(".npz"):
             x_fine_history = np.load(history_prompt)["fine_prompt"]
         else:
-            assert (history_prompt in ALLOWED_PROMPTS)
             x_fine_history = np.load(
                 os.path.join(CUR_PATH, "assets", "prompts", f"{history_prompt}.npz")
             )["fine_prompt"]
